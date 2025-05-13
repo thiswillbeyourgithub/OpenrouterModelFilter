@@ -4,7 +4,7 @@ import re
 import requests
 
 
-def main(
+def openrouter_model_filter(
     n: int = -1,
     return_all: bool = False,
     return_format: Literal["dict", "json", "str"] = "str",

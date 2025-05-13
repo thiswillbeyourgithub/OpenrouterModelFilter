@@ -12,7 +12,7 @@ def get_long_description():
 
 setup(
     name="openrouter-model-filter",
-    version="0.1.0",  # TODO: Increment version for new releases
+    version="1.0.0",
     author="TODO: Your Name", # TODO: Replace with your name
     author_email="TODO: your.email@example.com", # TODO: Replace with your email
     description="A CLI tool to fetch, filter, and sort models from the OpenRouter API.",

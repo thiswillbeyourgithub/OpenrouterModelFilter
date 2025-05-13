@@ -4,6 +4,8 @@ import re
 import requests
 import click
 
+__version__ = "1.0.0"
+
 
 def openrouter_model_filter(
     n: int = -1,

@@ -1,6 +1,6 @@
 [bumpver]
-current_version = "2025.1001-alpha"
-version_pattern = "YYYY.BUILD[-TAG]"
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
 tag_scope = "default"
@@ -8,14 +8,10 @@ pre_commit_hook = ""
 post_commit_hook = ""
 commit = true
 tag = true
-push = true
+push = false
 
 [bumpver.file_patterns]
-"setup.py" = [
-    "{version}",
-    "{pep440_version}",
-]
-"bumpver.toml" = [
-    'current_version = "{version}"',
-]
+"setup.py" = ["{version}"]
+"bumpver.toml" = ['current_version = "{version}"']
+"openrouter_model_filter/filter.py" = ['__version__: str = "{version}"']
 

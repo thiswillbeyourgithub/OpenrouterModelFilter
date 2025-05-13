@@ -32,6 +32,13 @@ This tool was initially created to be integrated with Simon Willison's [llm](htt
 llm --model "openrouter/$(openrouter_model_filter --n 5 | shuf | head -n 1)" "Hi, please tell me which model you are and what company made you."
 ```
 
+Or like that:
+```zsh
+alias freemodel="echo \"openrouter/$(openrouter_model_filter --n 5 | shuf | head -n 1)\""
+alias freellm="llm -m $(freemodel)"
+freellm "Hi, please tell me which model you are and what company made you."
+```
+
 **Note:** When using models via OpenRouter, you often need to explicitly agree to their terms, which may include allowing your prompts to be used for training by the model providers. Please check the OpenRouter documentation and model-specific terms.
 
 ## Filtering Options

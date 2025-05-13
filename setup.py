@@ -44,4 +44,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     # TODO: Consider adding keywords e.g. keywords="openrouter api llm models filter cli",
+    keywords="openrouter api llm models filter cli",
 )

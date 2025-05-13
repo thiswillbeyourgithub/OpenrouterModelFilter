@@ -32,10 +32,9 @@ setup(
         ],
     },
     classifiers=[
-        "Development Status :: 3 - Alpha", # TODO: Update as appropriate
         "Intended Audience :: Developers",
         "Topic :: Utilities",
-        "License :: OSI Approved :: MIT License", # TODO: Choose your license and update
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)", # TODO: Choose your license and update
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",

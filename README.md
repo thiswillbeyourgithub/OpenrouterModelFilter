@@ -12,6 +12,8 @@ pip install openrouter-model-filter
 
 ## Usage
 
+No API keys are required to use this tool as it only fetches publicly available model information.
+
 By default, `openrouter_model_filter` fetches models, keeps those tagged as `:free`, removes common `base`, `instruct`, or `math` specific models (which are often less suitable for general chat), sorts them by context length (descending), and returns a newline-separated list of model IDs. This sorting order generally places models with larger context windows, often the most recent or "frontier-like" ones, at the top of the list.
 
 You can customize the behavior using various command-line options:

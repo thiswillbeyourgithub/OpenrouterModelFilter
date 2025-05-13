@@ -1,5 +1,7 @@
 # OpenRouter Model Filter
 
+[![PyPI version](https://badge.fury.io/py/openrouter-model-filter.svg)](https://badge.fury.io/py/openrouter-model-filter)
+
 `openrouter_model_filter` is a command-line tool designed to fetch, filter, and sort models from the OpenRouter API.
 
 The primary idea behind this tool was to make it easy to identify and use the best currently available free models on OpenRouter. However, its filtering capabilities are flexible and can be adapted for various other criteria and use cases beyond just free models.

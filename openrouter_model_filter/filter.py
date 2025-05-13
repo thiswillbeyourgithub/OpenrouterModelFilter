@@ -2,11 +2,11 @@ from typing import Literal, Optional, Union
 import json
 import re
 import requests
+import click
 
 
 def openrouter_model_filter(
     n: int = -1,
-    return_all: bool = False,
     return_format: Literal["dict", "json", "str"] = "str",
     keep_regexes: str = ".*:free",
     remove_regexes: Optional[str] = r".*\bbase\b.*,.*\binstruct\b.*,.*\bmath\b",
@@ -19,7 +19,6 @@ def openrouter_model_filter(
 
     Args:
         n: Number of models to return. If -1, returns all matching models.
-        return_all: Deprecated. This argument is not used.
         return_format: The format of the returned data ("dict", "json", "str").
         keep_regexes: Comma-separated regexes. Models matching ALL regexes are kept.
         remove_regexes: Comma-separated regexes. Models matching ANY regex are removed.
@@ -70,7 +69,8 @@ def openrouter_model_filter(
 
     # crop
     if n != -1:
-        data = data[:n]
+        # Convert dictionary to list of items, slice, then convert back to dict
+        data = dict(list(data.items())[:n])
 
     # return
     if return_format == "dict":
@@ -82,4 +82,44 @@ def openrouter_model_filter(
         return s
     else:
         raise ValueError(return_format)
+
+
+@click.command()
+@click.option('--n', default=-1, type=int, show_default=True, help='Number of models to return. -1 for all.')
+@click.option('--return-format', default='str', type=click.Choice(['dict', 'json', 'str']), show_default=True, help='Output format.')
+@click.option('--keep-regexes', default=".*:free", type=str, show_default=True, help='Comma-separated regexes. Models matching ALL regexes are kept.')
+@click.option('--remove-regexes', default=r".*\bbase\b.*,.*\binstruct\b.*,.*\bmath\b", type=str, show_default=True, help='Comma-separated regexes. Models matching ANY regex are removed. Pass "" for no removal regexes.')
+@click.option('--openrouter-endpoint', default="https://openrouter.ai/api/v1/", type=str, show_default=True, help='OpenRouter API base URL.')
+@click.option('--model-url', default="/models", type=str, show_default=True, help='API endpoint for fetching models.')
+@click.option('--sort-key', default="context_length", type=str, show_default=True, help='Key to sort models by. Pass "" for no sorting.')
+def cli(n: int, return_format: str, keep_regexes: str, remove_regexes: str, openrouter_endpoint: str, model_url: str, sort_key: str):
+    """
+    Fetches, filters, and sorts models from the OpenRouter API.
+    Outputs the result to standard output.
+    """
+    # Handle empty string for sort_key to mean None (no sorting)
+    actual_sort_key = sort_key if sort_key else None
+    
+    # If remove_regexes is an empty string, openrouter_model_filter handles it correctly
+    # (it results in an empty list of regexes) due to `if remove_regexes else []`.
+
+    try:
+        result = openrouter_model_filter(
+            n=n,
+            return_format=return_format,
+            keep_regexes=keep_regexes,
+            remove_regexes=remove_regexes, # Pass as is
+            openrouter_endpoint=openrouter_endpoint,
+            model_url=model_url,
+            sort_key=actual_sort_key,
+        )
+
+        if return_format == "dict": # The function returns a dict
+            # For CLI, print dicts as JSON
+            click.echo(json.dumps(result, indent=2, ensure_ascii=False))
+        else: # The function returns a string (for "json" or "str" formats)
+            click.echo(result)
+    except Exception as e:
+        click.echo(f"Error: {e}", err=True)
+        # Consider exiting with a non-zero status code, e.g. raise click.ClickException(str(e))
 

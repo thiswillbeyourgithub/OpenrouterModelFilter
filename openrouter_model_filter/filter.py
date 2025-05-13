@@ -14,7 +14,23 @@ def main(
     model_url: str = "/models",
     sort_key: Optional[str] = "context_length",
     ) -> Union[str, dict]:
+    """
+    Fetches, filters, and sorts models from the OpenRouter API.
 
+    Args:
+        n: Number of models to return. If -1, returns all matching models.
+        return_all: Deprecated. This argument is not used.
+        return_format: The format of the returned data ("dict", "json", "str").
+        keep_regexes: Comma-separated regexes. Models matching ALL regexes are kept.
+        remove_regexes: Comma-separated regexes. Models matching ANY regex are removed.
+        openrouter_endpoint: The base URL for the OpenRouter API.
+        model_url: The API endpoint for fetching models.
+        sort_key: The key to sort models by (e.g., "context_length"). If None, no sorting.
+
+    Returns:
+        A string, dictionary, or JSON string containing the filtered model data,
+        depending on the return_format.
+    """
     # prepare args
     assert n == -1 or n > 0, "Invalid n argument"
     url = f"{openrouter_endpoint}/{model_url}"

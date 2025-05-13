@@ -4,12 +4,8 @@ from setuptools import setup, find_packages
 
 # Function to read the long description from README.md
 def get_long_description():
-    # TODO: Create a README.md file for your package
-    # For now, provides a default if README.md is missing
-    if os.path.exists("README.md"):
-        with open("README.md", "r", encoding="utf-8") as fh:
-            return fh.read()
-    return "A CLI tool to fetch, filter, and sort models from the OpenRouter API."
+    with open("README.md", "r", encoding="utf-8") as fh:
+        return fh.read()
 
 
 setup(

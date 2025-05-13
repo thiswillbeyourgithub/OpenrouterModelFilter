@@ -14,7 +14,7 @@ setup(
     description="A CLI tool to fetch, filter, and sort models from the OpenRouter API.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/thiswillbeyourgithub/openrouter-model-filter",
+    url="https://github.com/thiswillbeyourgithub/OpenrouterModelFilter",
     packages=find_packages(),
     install_requires=[
         "requests",
